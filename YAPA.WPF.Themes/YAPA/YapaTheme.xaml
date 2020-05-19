@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:shared="clr-namespace:YAPA.Shared;assembly=YAPA.WPF.Shared"
         mc:Ignorable="d"
-        Height="60" 
-        Width="130" 
+        Height="87" 
+        Width="90" 
         ShowInTaskbar="True" 
         ResizeMode="NoResize" 
         AllowsTransparency="True"
@@ -41,9 +41,9 @@
     </Window.Resources>
     <Grid Background="Transparent" IsHitTestVisible="True">
         <Viewbox >
-            <Grid >
+            <Grid HorizontalAlignment="Left" Height="36" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -59,17 +59,17 @@
                 >
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="32" />
-                        <ColumnDefinition Width="32" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="32" />
-                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition MinWidth="13" MaxWidth="13" />
+                        <ColumnDefinition MinWidth="13" MaxWidth="13" />
+                        <ColumnDefinition MinWidth="0" MaxWidth="0" />
+                        <ColumnDefinition MinWidth="0" MaxWidth="0" />
+                        <ColumnDefinition MinWidth="0" MaxWidth="0" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock x:Name="CurrentTimeMinutes" Grid.Column="0"
                Cursor="Arrow"
-               FontFamily="Segoe UI Light"
-               FontSize="60"
+               FontFamily="Roboto Condensed Light"
+               FontSize="27"
                Foreground="{Binding TextBrush}"
                Opacity="{Binding ClockOpacity}"
                Background="Transparent"    
@@ -90,8 +90,9 @@
 
                     <TextBlock x:Name="CurrentTimeMinutes2" Grid.Column="1"
                Cursor="Arrow"
-               FontFamily="Segoe UI Light"
-               FontSize="60"
+               FontFamily="Roboto Condensed Light"
+               FontSize="27"
+               Margin="0 0 17 0"
                Foreground="{Binding TextBrush}"
                Opacity="{Binding ClockOpacity}"
                Background="Transparent"    
@@ -113,8 +114,8 @@
 
                     <TextBlock x:Name="CurrentTimeSeparator" Grid.Column="2"
                Cursor="Arrow"
-               FontFamily="Segoe UI Light"
-               FontSize="60"
+               FontFamily="Roboto Condensed Light"
+               FontSize="27"
                Foreground="{Binding TextBrush}"
                Opacity="{Binding ClockOpacity}"
                Background="Transparent"    
@@ -136,8 +137,8 @@
 
                     <TextBlock x:Name="CurrentTimeSeconds" Grid.Column="3"
                Cursor="Arrow"
-               FontFamily="Segoe UI Light"
-               FontSize="60"
+               FontFamily="Roboto Condensed Light"
+               FontSize="27"
                Foreground="{Binding TextBrush}"
                Opacity="{Binding ClockOpacity}"
                Background="Transparent"    
@@ -159,8 +160,8 @@
 
                     <TextBlock x:Name="CurrentTimeSeconds2" Grid.Column="4"
                Cursor="Arrow"
-               FontFamily="Segoe UI Light"
-               FontSize="60"
+               FontFamily="Roboto Condensed Light"
+               FontSize="27"
                Foreground="{Binding TextBrush}"
                Opacity="{Binding ClockOpacity}"
                Background="Transparent"    
@@ -185,14 +186,15 @@
                                VerticalAlignment="Center"
                                x:Name="StageTextBlock"
                                TextAlignment="Left"
+                               Width="10"
                                Foreground="{Binding TextBrush}"
                                FontSize="10" 
                                Opacity="{Binding ClockOpacity}" 
-                               FontFamily="Segoe UI"
+                               FontFamily="Roboto Condensed Light"
                                FontStretch="UltraCondensed"/>
 
                 <!--<StackPanel Orientation="Vertical" Grid.Column="1">-->
-                <StackPanel VerticalAlignment="Top"   Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" x:Name="MinExitPanel">
+                <StackPanel VerticalAlignment="Center"   Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" x:Name="MinExitPanel" Height="22" Grid.RowSpan="2">
                     <Button x:Name="Minimize"
                 HorizontalAlignment="Right" 
                 VerticalAlignment="Top" 
@@ -212,11 +214,11 @@
                                Foreground="{Binding TextBrush}"
                                FontSize="10" 
                                Opacity="{Binding ClockOpacity}" 
-                               FontFamily="Segoe UI"
+                               FontFamily="Roboto Condensed Light"
                                FontStretch="UltraCondensed"/>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter TargetName="MinimizeTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" />
+                                        <!-- <Setter TargetName="MinimizeTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" /> -->
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -243,11 +245,11 @@
                                Foreground="{Binding TextBrush}"
                                FontSize="10" 
                                Opacity="{Binding ClockOpacity}"
-                               FontFamily="Segoe UI"
+                               FontFamily="Roboto Condensed Light"
                                FontStretch="UltraCondensed"/>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter TargetName="ExitTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" />
+                                        <!-- <Setter TargetName="ExitTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" /> -->
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -255,7 +257,7 @@
                     </Button>
                 </StackPanel>
 
-                <StackPanel VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" x:Name="ButtonPanel">
+                <StackPanel VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="1" x:Name="ButtonPanel" Opacity="0" Height="6">
                     <Button x:Name="Skip"
                             Command="{Binding ViewModel.SkipCommand}"
                             HorizontalAlignment="Right" 
@@ -274,12 +276,12 @@
                                            Foreground="{Binding TextBrush}"
                                            FontSize="11" 
                                            Opacity="{Binding ClockOpacity}"
-                                           FontFamily="Segoe UI"
+                                           FontFamily="Roboto Condensed Light"
                                            FontStretch="Normal"
                                 />
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter TargetName="PauseTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" />
+                                        <!-- <Setter TargetName="PauseTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" /> -->
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -304,12 +306,12 @@
                                Foreground="{Binding TextBrush}"
                                FontSize="11" 
                                Opacity="{Binding ClockOpacity}"
-                               FontFamily="Segoe UI"
+                               FontFamily="Roboto Condensed Light"
                                FontStretch="Normal"
                                            />
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter TargetName="StarTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" />
+                                        <!-- <Setter TargetName="StarTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" /> -->
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -333,12 +335,12 @@
                                Foreground="{Binding TextBrush}"
                                FontSize="11" 
                                Opacity="{Binding ClockOpacity}"
-                               FontFamily="Segoe UI"
+                               FontFamily="Roboto Condensed Light"
                                FontStretch="Normal"
                                            />
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter TargetName="PauseTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" />
+                                        <!-- <Setter TargetName="PauseTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" /> -->
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -362,11 +364,11 @@
                                Foreground="{Binding TextBrush}"
                                FontSize="11" 
                                Opacity="{Binding ClockOpacity}"
-                               FontFamily="Segoe UI"
+                               FontFamily="Roboto Condensed Light"
                                FontStretch="UltraCondensed"/>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter TargetName="StopTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" />
+                                        <!-- <Setter TargetName="StopTextBlock" Property="Background" Value="{Binding MouseOverBackgroundColor}" /> -->
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -375,7 +377,7 @@
 
                     <TextBlock x:Name="CurrentPeriod"
                    Cursor="Arrow"
-                   FontFamily="Segoe UI"
+                   FontFamily="Roboto Condensed Light"
                    FontStretch="UltraCondensed"
                    FontSize="8"
                    Foreground="{Binding TextBrush}"

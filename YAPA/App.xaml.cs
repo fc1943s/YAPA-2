@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
 using Autofac;
 using NLog;
 using SimpleFeedReader;
@@ -18,6 +21,79 @@ using IContainer = Autofac.IContainer;
 
 namespace YAPA
 {
+    public class StickToTop
+    {
+        private readonly Application _app;
+
+        public StickToTop(Application app) => _app = app;
+
+        public void Run()
+        {
+            if (_app.MainWindow == null)
+            {
+                return;
+            }
+
+            // _app.MainWindow.Deactivated += MainWindow_Deactivated;
+            _app.Dispatcher.BeginInvoke(new Action(async () => await StartLoop()));
+        }
+
+        private async Task StartLoop()
+        {
+            if (_app.MainWindow != null)
+            {
+                _app.MainWindow.Topmost = false;
+                _app.MainWindow.Topmost = true;
+            }
+
+            await Task.Delay(10000);
+            await StartLoop();
+        }
+
+        private void MainWindow_Deactivated(object sender, EventArgs e)
+        {
+            if (_app.MainWindow == null)
+            {
+                return;
+            }
+
+            _app.MainWindow.Topmost = false;
+            _app.MainWindow.Topmost = true;
+            
+            var hwnd = new WindowInteropHelper(_app.MainWindow).Handle;
+            _app.Dispatcher.BeginInvoke(new Action(async () => await RetrySetTopMost(hwnd)));
+        }
+        
+        private const int RetrySetTopMostDelay = 200;
+        private const int RetrySetTopMostMax = 20;
+
+        private static async Task RetrySetTopMost(IntPtr hwnd)
+        {
+            for (var i = 0; i < RetrySetTopMostMax; i++)
+            { 
+                await Task.Delay(RetrySetTopMostDelay);
+                var winStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+
+                if ((winStyle & WS_EX_TOPMOST) != 0)
+                {
+                    break;
+                }
+
+                if (Application.Current.MainWindow != null)
+                {
+                    Application.Current.MainWindow.Topmost = false;
+                    Application.Current.MainWindow.Topmost = true;
+                }
+            }
+        }
+
+        private static readonly int GWL_EXSTYLE = -20;
+        private static readonly int WS_EX_TOPMOST = 0x00000008;
+
+        [DllImport("user32.dll")]
+        private static extern int GetWindowLong(IntPtr hwnd, int index);
+    }
+
     public partial class App : ISingleInstanceApp
     {
         private static IContainer Container { get; set; }
@@ -25,6 +101,7 @@ namespace YAPA
         private static IThemeManager ThemeManager { get; set; }
         private static Dashboard Dashboard { get; set; }
 
+        
         [STAThread]
         public static void Main()
         {
@@ -49,10 +126,16 @@ namespace YAPA
                 });
 #endif
 
-                Current.MainWindow.Loaded += MainWindow_Loaded;
-                Current.MainWindow.Closing += MainWindowOnClosing;
-                Current.MainWindow.Show();
-                Current.MainWindow.Closed += MainWindow_Closed;
+                if (Current.MainWindow != null)
+                {
+                    Current.MainWindow.Loaded += MainWindow_Loaded;
+                    Current.MainWindow.Closing += MainWindowOnClosing;
+                    Current.MainWindow.Show();
+                    Current.MainWindow.Closed += MainWindow_Closed;
+                }
+
+                new StickToTop(Current).Run();
+                
 
                 application.Init();
                 application.Run();
