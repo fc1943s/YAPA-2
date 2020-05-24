@@ -153,6 +153,7 @@ namespace YAPA.Plugins.MinimizeToTray
                 new Tuple<string, ICommand>("Skip",_viewModel.SkipCommand),
                 new Tuple<string, ICommand>("Reset session",_viewModel.ResetCommand),
                 new Tuple<string, ICommand>("Settings",_viewModel.ShowSettingsCommand),
+                new Tuple<string, ICommand>("Minimize",_viewModel.MinimizeCommand),
             };
 
             var menuItems = commands.Select(x =>

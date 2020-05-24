@@ -442,6 +442,7 @@
     <Compile Include="WPF\RssFeedNormalizer.cs" />
     <Compile Include="WPF\Specifics\DependencyInjector.cs" />
     <Compile Include="Plugins\SoundSettings\MusicPlayer\MusicPlayer.cs" />
+    <Compile Include="WPF\Specifics\MinimizeCommand.cs" />
     <Compile Include="WPF\Specifics\NewftonsJson.cs" />
     <Compile Include="WPF\SettingsMananger\SettingManager.cs" />
     <Compile Include="WPF\DatabaseContext.cs" />

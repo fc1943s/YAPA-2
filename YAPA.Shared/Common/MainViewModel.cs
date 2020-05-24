@@ -14,8 +14,10 @@ namespace YAPA.Shared.Common
         public ICommand SkipCommand { get; set; }
 
         public ICommand ShowSettingsCommand { get; set; }
+        public ICommand MinimizeCommand { get; set; }
 
-        public MainViewModel(IPomodoroEngine engine, IShowSettingsCommand showSettings)
+        public MainViewModel(
+            IPomodoroEngine engine, IShowSettingsCommand showSettings, IMinimizeCommand minimizeCommand)
         {
             Engine = engine;
             StopCommand = new StopCommand(Engine);
@@ -23,6 +25,7 @@ namespace YAPA.Shared.Common
             ResetCommand = new ResetCommand(Engine);
             PauseCommand = new PauseCommand(Engine);
             SkipCommand = new SkipCommand(Engine);
+            MinimizeCommand = minimizeCommand;
 
             ShowSettingsCommand = showSettings;
         }

@@ -94,6 +94,7 @@ namespace YAPA.WPF
             builder.RegisterType(typeof(ItemRepository)).As<IPomodoroRepository>().SingleInstance();
 
             builder.RegisterType(typeof(ShowSettingsCommand)).As<IShowSettingsCommand>();
+            builder.RegisterType(typeof(MinimizeCommand)).As<IMinimizeCommand>();
             builder.RegisterType(typeof(DateTimeWrapper)).As<IDate>();
 
             builder.RegisterType(typeof(SettingManager)).As<ISettingManager>().SingleInstance();
